@@ -13,7 +13,7 @@ namespace Shop.Controllers
     public class ProductController : ControllerBase
     {
         [HttpGet]
-        [Route("products")]
+        [Route("")]
         public async Task<ActionResult<List<Product>>> Get([FromServices] DataContext context)
         {
             var products = await context.Products.Include(x => x.Category).AsNoTracking().ToListAsync();
@@ -34,6 +34,22 @@ namespace Shop.Controllers
         {
             var products = await context.Products.Include(x => x.Category).AsNoTracking().Where(x => x.CategoryId == id).ToListAsync();
             return products;
+        }
+
+        [HttpPost]
+        [Route("")]
+        public async Task<ActionResult<Product>> Post([FromServices] DataContext context, [FromBody] Product model)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Products.Add(model);
+                await context.SaveChangesAsync();
+                return Ok(model);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
     }
 }
