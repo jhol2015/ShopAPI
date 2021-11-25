@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "d8b9a261-77a2-4b1c-9de3-f70e5ce6ccb1": {
+      "ProjectGuid": "d8b9a261-77a2-4b1c-9de3-f70e5ce6ccb1",
+      "DisplayName": "Shop",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
