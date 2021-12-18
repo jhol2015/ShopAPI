@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.Routing.Matching;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using Shop.Data;
 
 namespace Shop
@@ -53,16 +52,10 @@ namespace Shop
 
 
             //informa para aplicação que tem um dbcontex
-            services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
-            //services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+            //services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+            services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
             //Garante que terá somente um dbcontext por conexao.
             services.AddScoped<DataContext, DataContext>();
-
-            //Documentando via Swagger
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop Api", Version = "v1" });
-            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -73,13 +66,7 @@ namespace Shop
             }
 
             app.UseHttpsRedirection(); //redireciona toda app para https
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shop API V1");
-            });
             app.UseRouting(); //padrao de rotas
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication(); //autenticação
             app.UseAuthorization();//autenticação com rotes
             app.UseEndpoints(endpoints => // mapeamento da rotas

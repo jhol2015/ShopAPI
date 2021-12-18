@@ -14,13 +14,12 @@ namespace Shop.Controllers
     //https://localhost:5001
     //azure => https://meuapp.azurewebsites.net/
 
-    [Route("v1/categories")]
+    [Route("categories")]
     public class CategoryController : ControllerBase
     {
         [HttpGet]
         [Route("")]
         [AllowAnonymous]
-        [ResponseCache(VaryByHeader = "User-Agent", Location = ResponseCacheLocation.Any, Duration = 30)]
         public async Task<ActionResult<List<Category>>> Get(
             [FromServices] DataContext context)
         {

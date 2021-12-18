@@ -85,12 +85,10 @@ namespace Shop.Controllers
             int id,
             [FromBody] User model)
         {
-            //Verifica se o ID informado é o mesmo do modelo
             if (id != model.Id)
             {
                 return NotFound(new { message = "Usuário não encontrado" });
             }
-            //Verifica se os dados são válidos.
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

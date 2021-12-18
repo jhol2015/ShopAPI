@@ -39,14 +39,8 @@ namespace Shop.Controllers
             }
             try
             {
-                //Força o usuário a ser sempre "Funcionário"
-                model.Role = "employee";
-
                 context.Users.Add(model);
                 await context.SaveChangesAsync();
-
-                //Esconde a senha
-                model.Password = "";
                 return model;
             }
             catch (Exception)
@@ -85,12 +79,10 @@ namespace Shop.Controllers
             int id,
             [FromBody] User model)
         {
-            //Verifica se o ID informado é o mesmo do modelo
             if (id != model.Id)
             {
                 return NotFound(new { message = "Usuário não encontrado" });
             }
-            //Verifica se os dados são válidos.
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

@@ -53,8 +53,8 @@ namespace Shop
 
 
             //informa para aplicação que tem um dbcontex
-            services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
-            //services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+            //services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+            services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
             //Garante que terá somente um dbcontext por conexao.
             services.AddScoped<DataContext, DataContext>();
 
